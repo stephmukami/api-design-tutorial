@@ -26,9 +26,8 @@ const userSchema = Schema({
         required: [true, "Password is required"],
         minlength: [8, "Password must be at least 8 characters long"]
     },
-    confirmationPassword:{
+    confirmPassword:{
         type: String,
-        required: [true, "Password is required"],
         minlength: [8, "Password must be at least 8 characters long"]
     },
     createdAt:{
