@@ -44,11 +44,11 @@ app.get('/', (req, res) => {
   res.json({"msg": "welcome to idx api"});
 });
 
-app.use("api/users",userRouter);
-app.use("api/login",loginRouter);
-app.use("api/signup",signupRouter);
-app.use("api/update",updateRouter);
-app.use("api/delete",deleteRouter);
+app.use("/api/users",userRouter);
+app.use("/api/login",loginRouter);
+app.use("/api/signup",signupRouter);
+app.use("/api/update",updateRouter);
+app.use("/api/delete",deleteRouter);
 
 //app.use() is more general and typically used for middleware or grouping routes, whereas app.get() is more specific to GET requests.
 
