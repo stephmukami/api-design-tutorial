@@ -15,7 +15,8 @@ const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 
 //initializing db
 const connectDB = require("./config/db");
-const User = require("./models/User");
+const User  = require("./models/usermodel")
+
 connectDB();
 
 //initializing passport for auth
