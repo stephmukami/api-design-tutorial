@@ -1,9 +1,13 @@
 const User = require("../models/usermodel");
 const bcrypt = require("bcrypt");
-const saltRounds = 20;
+const saltRounds = 5;
 
 async function createUser(req,res,next){
     const {firstname,lastname,password,confirmPassword,email} = req.body;
+    
+    if (!firstname || !lastname || !email || !password || !confirmPassword) {
+        return res.status(400).send({ message: "All fields are required" });
+    }
     try{
         if( password !== confirmPassword){
             return res.status(400).send({message:"passwords do not match"});
@@ -25,12 +29,12 @@ async function createUser(req,res,next){
 
         
     } catch(error){
-        return res.status(500).send({message:"Internal server error"});
+        return res.status(500).send({details: error.errors });
     }
 }
 
 async function displayUsers(next,req,res){
-console.log("hey")
+ console.log("hellocls")
 }
 
 module.exports = {
