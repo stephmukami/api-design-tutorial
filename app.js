@@ -15,7 +15,7 @@ const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 
 //initializing db
 const connectDB = require("./config/db");
-const User = require("./models/User");
+const User = require("./models/usermodel");
 connectDB();
 
 //initializing passport for auth
@@ -32,23 +32,27 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs');
 
+//session management config
+app.use(session({secret: process.env.SECRET, resave: false, saveUninitialized: true})); // does not save a new session unless the session was modified but will save resulting data from the session
+app.use(passport.initialize());
+app.use(passport.session());
 
 //accessing modular routes
 const userRouter = require("./routes/users");
-const loginRouter = require("./routes/login");
-const signupRouter = require("./routes/signup");
-const updateRouter = require("./routes/update");
-const deleteRouter = require("./routes/delete");
+// const loginRouter = require("./routes/login");
+// const signupRouter = require("./routes/signup");
+// const updateRouter = require("./routes/update");
+// const deleteRouter = require("./routes/delete");
 
 app.get('/', (req, res) => {
   res.json({"msg": "welcome to idx api"});
 });
 
 app.use("/api/users",userRouter);
-app.use("/api/login",loginRouter);
-app.use("/api/signup",signupRouter);
-app.use("/api/update",updateRouter);
-app.use("/api/delete",deleteRouter);
+// app.use("/api/login",loginRouter);
+// app.use("/api/signup",signupRouter);
+// app.use("/api/update",updateRouter);
+// app.use("/api/delete",deleteRouter);
 
 //app.use() is more general and typically used for middleware or grouping routes, whereas app.get() is more specific to GET requests.
 
@@ -62,10 +66,7 @@ app.get("/logout",(req,res,next)=>{
 });
 
 
-//session management config
-app.use(session({secret: process.env.SECRET, resave: false, saveUninitialized: true})); // does not save a new session unless the session was modified but will save resulting data from the session
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 //error handling
 

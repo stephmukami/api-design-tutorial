@@ -30,7 +30,7 @@ async function createUser(req,res,next){
 }
 
 async function displayUsers(next,req,res){
-
+console.log("hey")
 }
 
 module.exports = {
