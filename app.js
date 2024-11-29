@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const passport = require("passport");
 
+
 const app = express();
 
 const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
@@ -40,15 +41,23 @@ app.get('/', (req, res) => {
   res.json({"msg": "welcome to idx api"});
 });
 
+app.get('/auth-users', (req, res) => {
+  res.json({"msg": " you are successfully authenticated "});
+});
+
+app.get('/help', (req, res) => {
+  res.json({"msg": "register or login using correct credentials"});
+});
+
 // Import and use routes
 const userRouter = require("./routes/users");
-// const loginRouter = require("./routes/login");
+const loginRouter = require("./routes/login");
 // const signupRouter = require("./routes/signup");
 // const updateRouter = require("./routes/update");
 // const deleteRouter = require("./routes/delete");
 
-app.use("/api/users", userRouter);
-// app.use("/api/login", loginRouter);
+app.use("/api/register", userRouter);
+app.use("/api/login", loginRouter);
 // app.use("/api/signup", signupRouter);
 // app.use("/api/update", updateRouter);
 // app.use("/api/delete", deleteRouter);
