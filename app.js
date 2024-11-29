@@ -27,16 +27,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Session and passport
-app.use(session({
-  secret: process.env.SECRET, 
-  resave: false, 
-  saveUninitialized: true
-}));
+//session management config
+app.use(session({secret: process.env.SECRET, resave: false, saveUninitialized: true})); // does not save a new session unless the session was modified but will save resulting data from the session
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
+//accessing modular routes
+const userRouter = require("./routes/users");
+// const loginRouter = require("./routes/login");
+// const signupRouter = require("./routes/signup");
+// const updateRouter = require("./routes/update");
+// const deleteRouter = require("./routes/delete");
+
 app.get('/', (req, res) => {
   res.json({"msg": "welcome to idx api"});
 });
@@ -49,12 +51,10 @@ app.get('/help', (req, res) => {
   res.json({"msg": "register or login using correct credentials"});
 });
 
-// Import and use routes
-const userRouter = require("./routes/users");
-const loginRouter = require("./routes/login");
-// const signupRouter = require("./routes/signup");
-// const updateRouter = require("./routes/update");
-// const deleteRouter = require("./routes/delete");
+// app.use("/api/login",loginRouter);
+// app.use("/api/signup",signupRouter);
+// app.use("/api/update",updateRouter);
+// app.use("/api/delete",deleteRouter);
 
 app.use("/api/register", userRouter);
 app.use("/api/login", loginRouter);
@@ -72,8 +72,13 @@ app.get("/logout", (req, res, next) => {
   });
 });
 
-// 404 handler
-app.use((req, res, next) => {
+
+
+
+//error handling
+
+//404 page
+app.use(function(req,res,next){
   next(createError(404));
 });
 
