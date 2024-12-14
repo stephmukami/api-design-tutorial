@@ -36,8 +36,7 @@ app.use(passport.session());
 //accessing modular routes
 const userRouter = require("./routes/users");
 const loginRouter = require("./routes/login");
-// const signupRouter = require("./routes/signup");
-// const updateRouter = require("./routes/update");
+const updateRouter = require("./routes/update");
 // const deleteRouter = require("./routes/delete");
 
 app.get('/', (req, res) => {
@@ -48,15 +47,15 @@ app.get('/auth-users', (req, res) => {
   res.json({"msg": " you are successfully authenticated "});
 });
 
-app.get('/help', (req, res) => {
-  res.json({"msg": "register or login using correct credentials"});
-});
+
 
 
 app.use("/api/register", userRouter);
 app.use("/api/login", loginRouter);
-// app.use("/api/signup", signupRouter);
-// app.use("/api/update", updateRouter);
+
+app.use("/api/update", updateRouter);
+
+
 // app.use("/api/delete-user", deleteRouter);
 
 // Logout route
