@@ -33,12 +33,12 @@ async function createUser(req,res,next){
     }
 }
 
-async function displayUsers(next,req,res){
- console.log("hellocls")
-}
+// async function displayUsers(next,req,res){
+//  console.log("hellocls")
+// }
 
 module.exports = {
     createUser,
-    displayUsers
+    //displayUsers
 
 };

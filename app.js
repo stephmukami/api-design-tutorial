@@ -10,6 +10,7 @@ const passport = require("passport");
 
 const app = express();
 
+
 const port = parseInt(process.env.PORT) || process.argv[3] || 8080;
 
 // Database connection
@@ -34,7 +35,7 @@ app.use(passport.session());
 
 //accessing modular routes
 const userRouter = require("./routes/users");
-// const loginRouter = require("./routes/login");
+const loginRouter = require("./routes/login");
 // const signupRouter = require("./routes/signup");
 // const updateRouter = require("./routes/update");
 // const deleteRouter = require("./routes/delete");
@@ -51,16 +52,12 @@ app.get('/help', (req, res) => {
   res.json({"msg": "register or login using correct credentials"});
 });
 
-// app.use("/api/login",loginRouter);
-// app.use("/api/signup",signupRouter);
-// app.use("/api/update",updateRouter);
-// app.use("/api/delete",deleteRouter);
 
 app.use("/api/register", userRouter);
 app.use("/api/login", loginRouter);
 // app.use("/api/signup", signupRouter);
 // app.use("/api/update", updateRouter);
-// app.use("/api/delete", deleteRouter);
+// app.use("/api/delete-user", deleteRouter);
 
 // Logout route
 app.get("/logout", (req, res, next) => {
@@ -68,7 +65,8 @@ app.get("/logout", (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.json({"msg": "successfully logged out"});
+
   });
 });
 
