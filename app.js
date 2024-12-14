@@ -37,7 +37,7 @@ app.use(passport.session());
 const userRouter = require("./routes/users");
 const loginRouter = require("./routes/login");
 const updateRouter = require("./routes/update");
-// const deleteRouter = require("./routes/delete");
+const deleteRouter = require("./routes/delete");
 
 app.get('/', (req, res) => {
   res.json({"msg": "welcome to idx api"});
@@ -54,9 +54,7 @@ app.use("/api/register", userRouter);
 app.use("/api/login", loginRouter);
 
 app.use("/api/update", updateRouter);
-
-
-// app.use("/api/delete-user", deleteRouter);
+app.use("/api/delete-user", deleteRouter);
 
 // Logout route
 app.get("/logout", (req, res, next) => {
